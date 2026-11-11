@@ -20,18 +20,18 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: ojt_prj
+          POSTGRES_DB: programdb
           POSTGRES_USER: program_app_rw
           POSTGRES_PASSWORD: 12345
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U program_app_rw -d ojt_prj"
+          --health-cmd "pg_isready -U program_app_rw -d programdb"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
     env:
-      DB_URL: jdbc:postgresql://localhost:5432/ojt_prj
+      DB_URL: jdbc:postgresql://localhost:5432/programdb
       DB_USERNAME: program_app_rw
       DB_PASSWORD: 12345
       SPRING_FLYWAY_ENABLED: "true"
