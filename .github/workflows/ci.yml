@@ -34,7 +34,9 @@ jobs:
       DB_URL: jdbc:postgresql://localhost:5432/programdb
       DB_USERNAME: program_app_rw
       DB_PASSWORD: 12345
-      SPRING_FLYWAY_ENABLED: "true"
+      # The repository has only V020 quiz migration and no baseline schema
+      # for core tables; let Hibernate create CI's disposable smoke-test schema.
+      SPRING_FLYWAY_ENABLED: "false"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
