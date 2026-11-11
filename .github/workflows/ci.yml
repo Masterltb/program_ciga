@@ -1,0 +1,46 @@
+name: Java CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: program-service
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: ojt_prj
+          POSTGRES_USER: program_app_rw
+          POSTGRES_PASSWORD: 12345
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U program_app_rw -d ojt_prj"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DB_URL: jdbc:postgresql://localhost:5432/ojt_prj
+      DB_USERNAME: program_app_rw
+      DB_PASSWORD: 12345
+      SPRING_FLYWAY_ENABLED: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+      - name: Verify with Maven Wrapper
+        run: ./mvnw --batch-mode --no-transfer-progress verify

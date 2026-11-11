@@ -74,7 +74,7 @@ public class QuizFlowServiceImpl implements QuizFlowService {
         at.setUserId(userId);
         at.setOpenedAt(Instant.now());
         at.setStatus(AttemptStatus.OPEN);
-        at.setAnswers(new LinkedHashSet<>());
+        at.setAnswers(new ArrayList<>());
         attemptRepo.save(at);
 
         List<OpenAttemptRes.QuestionView> qs = t.getQuestions().stream().map(q ->
@@ -149,7 +149,7 @@ public class QuizFlowServiceImpl implements QuizFlowService {
     private SeverityLevel toSeverity(int total) {
         // Chuẩn điểm ví dụ (10 câu, thang 1-5) => 10..50
         if (total <= 15) return SeverityLevel.LOW;
-        if (total <= 25) return SeverityLevel.MEDIUM; // hoặc MODERATE tùy enum của bạn
+        if (total <= 25) return SeverityLevel.MODERATE;
         return SeverityLevel.HIGH;
     }
 }

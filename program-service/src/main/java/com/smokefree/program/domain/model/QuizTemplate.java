@@ -19,6 +19,10 @@ public class QuizTemplate {
     private UUID id;
     private String name;
     private Integer version;
+    private String scope;
+    private UUID ownerId;
+    private Instant createdAt;
+    private Instant updatedAt;
     @Enumerated(EnumType.STRING) private QuizTemplateStatus status; // DRAFT/PUBLISHED/ARCHIVED
     private String languageCode;
     private Instant publishedAt;

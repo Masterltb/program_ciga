@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -41,7 +41,7 @@ public class QuizTemplateServiceImpl implements QuizTemplateService {
         t.setUpdatedAt(Instant.now());
 
         // Questions
-        var questions = new LinkedHashSet<QuizTemplateQuestion>();
+        var questions = new ArrayList<QuizTemplateQuestion>();
         if (req.questions() != null) {
             for (var q : req.questions()) {
                 QuizTemplateQuestion qq = new QuizTemplateQuestion();
@@ -52,7 +52,7 @@ public class QuizTemplateServiceImpl implements QuizTemplateService {
                 qq.setTemplate(t);
                 qq.setText(q.text());
 
-                var choices = new LinkedHashSet<QuizChoiceLabel>();
+                var choices = new ArrayList<QuizChoiceLabel>();
                 if (q.choices() != null) {
                     for (var c : q.choices()) {
                         QuizChoiceLabel cc = new QuizChoiceLabel();
@@ -61,7 +61,7 @@ public class QuizTemplateServiceImpl implements QuizTemplateService {
                         cid.setQuestionNo(q.questionNo());
                         cid.setScore(c.score());
                         cc.setId(cid);
-                        cc.setTemplate(t);
+                        cc.setQuestion(qq);
                         cc.setLabel(c.label());
                         choices.add(cc);
                     }
