@@ -12,10 +12,10 @@ public class QuizChoiceLabel {
     @EmbeddedId
     private QuizChoiceLabelId id;
 
-    @MapsId("templateId") // map phần templateId/questionNo trong ID vào quan hệ
+    // The embedded key owns both FK columns; this relation is read-only.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "template_id", referencedColumnName = "template_id"),
+            @JoinColumn(name = "template_id", referencedColumnName = "template_id", insertable = false, updatable = false),
             @JoinColumn(name = "question_no", referencedColumnName = "question_no", insertable = false, updatable = false)
     })
     private QuizTemplateQuestion question;
