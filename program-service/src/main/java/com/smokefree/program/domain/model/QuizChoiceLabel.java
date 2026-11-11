@@ -16,7 +16,7 @@ public class QuizChoiceLabel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "template_id", referencedColumnName = "template_id"),
-            @JoinColumn(name = "question_no", referencedColumnName = "question_no")
+            @JoinColumn(name = "question_no", referencedColumnName = "question_no", insertable = false, updatable = false)
     })
     private QuizTemplateQuestion question;
 
